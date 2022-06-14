@@ -29,6 +29,7 @@ Within the loop, there is a sewuence defined which describes the trial structure
 The experiment sequence itself ends with a separate init script for displaying and saving the results. First, a canvas is drawn and a keyboard is defined in oder to get an answer from the tester (to close the experiement). Thereafter, the table which was defined int eh first init script at the start is filled with the saved values and finally displayed on the previouslz created canvas. 
 As the last step, the tablek is saved as a .tsv file in the same where the OpenSesame test is saved to and named *timingresults_{var.subject_nr}*.
 
+
 ### *Blank screen* 
 The blank screen is a white rectangkle in the middle of the screen, drawn on a canvas and displyed for 1000 ms. 
 
@@ -42,3 +43,11 @@ The audio data is taken from the file called TestSound.wav and plays the audio o
 The video data is taken from the file called Moef.wav and plays the video once (however, the trial is repeated five times and the averge delay from these five trials is computed afterwards).The video is being de-selecterd currently (which can be done in the first loop calle dthe experiment_loop_with_all_trials) because it needs a different back-end to be played. We use the psycho backend, however, it is not compartible with the video file. The video file works only if "legacy" is the selected back-end. 
 
 ## **Results**
+
+### *Onset Timing (Photo Transistor vs. Serial Marker)*
+The Onset DIFF value is defined as: 
+
+(Slide onset-time as measured by the transistor) – (Slide onset-time as measured via the serial port) 
+
+The statistics are given in milliseconds. 
+
