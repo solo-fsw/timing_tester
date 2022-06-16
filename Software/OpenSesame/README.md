@@ -58,10 +58,10 @@ Below you can see how a result table looks like. The file is automatically saved
 | 2.0           | 30308.0       | blank    | 
 | 3.0           | 21548.0       | blank    |
 | 4.0           | 17360.0       | blank    |
-| 5.0           | 19748.        | blank    |
-| 1.0           | 24110         | picture  |
-| 2.0           | 256.0         | picture  |
-| 3.0           | 504.0         | picture  |
+| 5.0           | 24116.0       | blank    |
+| 1.0           | 25176.0       | picture  |
+| 2.0           | 37612.0       | picture  |
+| 3.0           | 35504.0	    | picture  |
 | 4.0           | 37612.0       | picture  |
 | 5.0           | 28620.0       | picture  |
 | 1.0           | 128748.0      | audio    |
