@@ -29,6 +29,7 @@ Within the loop, there is a sewuence defined which describes the trial structure
 The experiment sequence itself ends with a separate init script for displaying and saving the results. First, a canvas is drawn and a keyboard is defined in oder to get an answer from the tester (to close the experiement). Thereafter, the table which was defined int eh first init script at the start is filled with the saved values and finally displayed on the previouslz created canvas. 
 As the last step, the tablek is saved as a .tsv file in the same where the OpenSesame test is saved to and named *timingresults_{var.subject_nr}*.
 
+![timingtester_sceleton](https://user-images.githubusercontent.com/99676357/174033929-3e1df8fc-d6d0-47d0-bf7f-5840dd3d156c.PNG)
 
 ### *Blank screen* 
 The blank screen is a white rectangkle in the middle of the screen, drawn on a canvas and displyed for 1000 ms. 
@@ -51,6 +52,7 @@ The Onset DIFF value is defined as:
 
 The statistics are given in milliseconds. 
 
+<<<<<<< HEAD
 | Iteration     | Delay         | Label    |
 | ------------- | ------------- | -------- |
 | 1.0           | 17020.0       | blank    |
@@ -71,4 +73,6 @@ The statistics are given in milliseconds.
 
 
 
+=======
+>>>>>>> c751ef4aa7cc0b182d0e3f24ac129695b6117ded
 
