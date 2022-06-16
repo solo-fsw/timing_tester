@@ -51,4 +51,24 @@ The Onset DIFF value is defined as:
 
 The statistics are given in milliseconds. 
 
-![](../../../../Desktop/timingtester_sceleton.PNG)
+| Iteration     | Delay         | Label    |
+| ------------- | ------------- | -------- |
+| 1.0           | 17020.0       | blank    |
+| 2.0           | 30308.0       | blank    | 
+| 3.0           | 21548.0       | blank    |
+| 4.0           | 17360.0       | blank    |
+| 5.0           | 19748.        | blank    |
+| 1.0           | 24110         | picture  |
+| 2.0           | 256.0         | picture  |
+| 3.0           | 504.0         | picture  |
+| 4.0           | 37612.0       | picture  |
+| 5.0           | 28620.0       | picture  |
+| 1.0           | 128748.0      | audio    |
+| 2.0           | 136444.0      | audio    |
+| 3.0           | 137808.0      | audio    |
+| 4.0           | 132512.0      | audio    |
+| 5.0           | 140188.0      | audio    |
+
+
+
+
