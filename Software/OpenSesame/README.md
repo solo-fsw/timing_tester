@@ -50,9 +50,8 @@ The Onset DIFF value is defined as:
 
 (Slide onset-time as measured by the transistor) – (Slide onset-time as measured via the serial port) 
 
-The statistics are given in milliseconds. 
+Below you can see how a result table looks like. The file is automatically saved in the .tsv format in the same folder where the OpenSesame experiment is located at. The statistics are given in milliseconds. 
 
-<<<<<<< HEAD
 | Iteration     | Delay         | Label    |
 | ------------- | ------------- | -------- |
 | 1.0           | 17020.0       | blank    |
@@ -72,7 +71,4 @@ The statistics are given in milliseconds.
 | 5.0           | 140188.0      | audio    |
 
 
-
-=======
->>>>>>> c751ef4aa7cc0b182d0e3f24ac129695b6117ded
 
