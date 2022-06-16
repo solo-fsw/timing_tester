@@ -51,3 +51,5 @@ The Onset DIFF value is defined as:
 
 The statistics are given in milliseconds. 
 
+![timingtester_sceleton](https://user-images.githubusercontent.com/99676357/174033929-3e1df8fc-d6d0-47d0-bf7f-5840dd3d156c.PNG)
+
