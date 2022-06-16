@@ -51,3 +51,4 @@ The Onset DIFF value is defined as:
 
 The statistics are given in milliseconds. 
 
+![Timing Tester Experiment Structure in OpenSesame ](timingtester_sceleton.png)
