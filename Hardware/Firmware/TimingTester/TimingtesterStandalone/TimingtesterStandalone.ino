@@ -22,7 +22,7 @@
 #include <EEPROM.h>
 
 //Version
-#define Version "5.0"
+#define Version "1.0"
 
 //Instance
 LiquidCrystal lcd(6, 12, A0, A1, A2, A3);
@@ -44,7 +44,7 @@ void setup() {
   lcd.begin(20, 4);
   pinMode(MARKEROUT, OUTPUT);
   pinMode(MARKER_INT, INPUT_PULLUP);
-  pinMode(SRBOX_INT, INPUT_PULLUP);
+  pinMode(SRBOX_INT, INPUT_PULLUP);  //SrBox = now the reset button
   pinMode(LIGHTSENSOR_INT, INPUT_PULLUP);
   Serial.begin(115200);     // opens serial port, sets data rate to 115200 bps
   ResetTimingTester();
@@ -53,28 +53,35 @@ void setup() {
   //EEPROM.write(20, 1); //Only need to be enable when flashing for the first time to wite serial# to eeprom
   delay (1000);
   EnableMarkerInt();
+  EnableSrboxInt(); // Alleen nog nodig voor reset
   DisableLightsensorInt();
 }
 
 
 void loop() {
-  if (Serial.available() > 0) {
-    // read the incoming byte:
-    incomingByte = Serial.read();
-    SendMarker();
+  if (Serial.baud() == 115200 || Serial.baud() == 9600 ) {    //data mode
+    if (Serial.available() > 0) {
+      SendMarker();
+      incomingByte = Serial.read(); // read the incoming byte:
+    }
   }
+  else if (Serial.baud() == 4800) { //command mode
+    if (Serial.available() > 0) {
+      handlecommands();
+    }
+  }
+
 
   if (DataAvailable == true) {
     unsigned long diff;
-
     diff = stoptime - starttime;
-
-
     lcd.clear();
-    lcd.print(diff/1000);
+    lcd.print(diff / 1000);
     lcd.print(" ");
-    //lcd.write(byte(0));
     lcd.print("ms");
+    lcd.setCursor(17, 0);
+    lcd.print(incomingByte);
+
 
     AverageTotaal = AverageTotaal + (diff);
     maxim = max( diff , maxim);
@@ -83,16 +90,15 @@ void loop() {
     lcd.setCursor(0, 2);
 
     lcd.print("Max:");
-    lcd.print(maxim/1000);
+    lcd.print(maxim / 1000);
     lcd.print(" Min:");
-    lcd.print(minum/1000);
+    lcd.print(minum / 1000);
     lcd.setCursor(0, 3);
     lcd.print("Avg:");
-    lcd.print((AverageTotaal / Counter)/1000);
+    lcd.print((AverageTotaal / Counter) / 1000);
     lcd.print(" Count:");
     lcd.print(Counter);
-    Data[Counter] = diff;  //nog naar een apparte array en kopieren na een STOP
-
+    //Data[Counter] = diff;  //nog naar een apparte array en kopieren na een STOP
     DataAvailable = false;
   }
 }

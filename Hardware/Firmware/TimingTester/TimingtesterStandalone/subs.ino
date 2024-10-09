@@ -1,62 +1,3 @@
-void DisplayTestSetup() {
-  DisableMarkerInt();
-  DisableLightsensorInt();
-  lcd.clear();
-  lcd.print("Display Test");
-  lcd.setCursor(0, 1);
-  lcd.print("Waiting for trigger");
-  Counter = 0;
-  AverageTotaal = 0;
-  maxim = 0;
-  minum = -1;
-  TestIsRunning = DISPLAYTEST;
-  EnableMarkerInt();
-  EnableLightsensorInt();
-}
-
-void AudioTestSetup() {
-  DisableMarkerInt();
-  DisableAudioInt();
-  lcd.clear();
-  lcd.print("Audio Test");
-  lcd.setCursor(0, 1);
-  lcd.print("Waiting for trigger");
-  Counter = 0;
-  AverageTotaal = 0;
-  maxim = 0;
-  minum = -1;
-  TestIsRunning = AUDIOTEST;
-  EnableMarkerInt();
-  EnableAudioInt();
-}
-
-void SrboxTestSetup() {
-  DisableMarkerInt();
-  DisableSrboxInt();
-  lcd.clear();
-  lcd.print("Srbox Test");
-  lcd.setCursor(0, 1);
-  lcd.print("Waiting for trigger");
-  Counter = 0;
-  AverageTotaal = 0;
-  maxim = 0;
-  minum = -1;
-  TestIsRunning = SRBOXTEST;
-  EnableMarkerInt();
-  EnableSrboxInt();
-}
-
-//void SsartAudioTest() {
-//  lcd.clear();
-//  lcd.print("Audio Test");
-//  lcd.setCursor(0, 1);
-//  lcd.print("Waiting for trigger");
-//  Counter = 0;
-//  AverageTotaal = 0;
-//  TestIsRunning = AUDIOTEST;
-//  EnableMarkerInt();
-//  EnableAudioInt();
-//}
 
 
 void ResetTimingTester() {
@@ -77,26 +18,40 @@ void ResetTimingTester() {
   DisableSrboxInt();
 }
 
-void SendMarker() {
+void SendMarker() {                        //Needed to create HW interrupt
   digitalWrite(MARKEROUT, HIGH);
   delay(1);
   digitalWrite(MARKEROUT, LOW);
 }
 
-void InvalidCommand() {
-  lcd.clear();
-  lcd.print("Invalid command");
-  lcd.setCursor(0, 1);
-  lcd.print("received!");
+
+void DumpMyInfo() {
+  Serial.print("{\"Version\":\"");
+  Serial.print(Version);
+  Serial.print("\",");
+  Serial.print("\"Serialno\":\"");
+  Serial.print(Serialno);
+  Serial.print("\",");
+  Serial.println("\"Device\":\"UsbParMarker\"}");  
+ // Serial.println("\"Device\":\"TimingTesterSA\"}");
+  //Serial.write(ETX);
 }
 
-void TestingFinished() {
-  DisableMarkerInt();
-  DisableLightsensorInt();
-  DisableAudioInt();
-  DisableSrboxInt();
-  lcd.clear();
-  lcd.print("Testing Finished");
-  lcd.setCursor(0, 2);
-  lcd.print("Have a nice day");
+void handlecommands() {
+  switch (Serial.read()) {
+    case 'V':
+      DumpMyInfo();
+      break;
+    case 'P':
+      //Serial.println("Pong,TimingTesterSA");
+      Serial.println("Pong,UsbParMarker");
+      break;
+   case 'R':
+      SrboxIsr();
+      break;   
+    default:
+      Serial.println("Unknown command");
+      break;
+  }
 }
+
