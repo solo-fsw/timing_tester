@@ -32,6 +32,7 @@ void DisableSrboxInt() {
 //Isr routines
 void MarkerIsr() {
   EnableLightsensorInt();
+  //EnableAudioInt();
   starttime = micros();
   //Serial.print("IntM ");
   //Serial.println(starttime);
@@ -41,14 +42,14 @@ void MarkerIsr() {
 void LightsensorIsr() {
   DisableLightsensorInt();
   stoptime = micros();
-  DataAvailable = true;
+  DataAvailable = VIDEO;
   //Serial.println("IntL");
 }
 
 void AudioIsr() {
   DisableAudioInt();  //Disabele interrupt to prevent trigger on the second sinus
   stoptime = micros();
-  DataAvailable = true;
+  DataAvailable = AUDIO;
   //Serial.println("IntA");
 }
 

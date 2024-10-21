@@ -1,10 +1,7 @@
 /*
   HardwareTimingTester V1 Build 1 28-5-2019
   Copyright Leiden University - SOLO
-  1.0 Initial release
-  1.1 20190709  Added Pull-up for LIGHTSENSOR_INT, in prototype this was a fixed resistor
-  1.2 20220607  lcd.clear in the STARTxxxTEST cases causes extra delay of 2.3ms, moved this to the xxxTESTSETUP
-  5.0 20241007  Port to standalone version, standalone version works by itself for display timing test only.
+  1.0 20241007  Port to standalone version, standalone version works by itself for display timing test only.
 */
 
 /* IMPORTANT NOTE
@@ -21,6 +18,11 @@
 #include <LiquidCrystal.h>
 #include <EEPROM.h>
 
+//Defines
+#define NONE 0
+#define VIDEO 1
+#define AUDIO 2
+
 //Version
 #define Version "1.0"
 
@@ -32,15 +34,17 @@ byte incomingByte = 0;   // for incoming serial data
 unsigned long starttime;
 unsigned long stoptime;
 byte TestIsRunning = NOTEST;
-boolean DataAvailable = false;
+byte DataAvailable = 0;
 unsigned int Counter = 0 ;
 unsigned long AverageTotaal = 0;
 unsigned long Data[50];
 unsigned long maxim = 0;
 unsigned long minum = -1;
-unsigned int Serialno = 100;
+String Serialno;
 
 void setup() {
+  //writeStringToEEPROM(10, "S01626");    //Use ones to program te serial number in the eeprom of the device
+  Serialno = readStringFromEEPROM(10);
   lcd.begin(20, 4);
   pinMode(MARKEROUT, OUTPUT);
   pinMode(MARKER_INT, INPUT_PULLUP);
@@ -49,10 +53,10 @@ void setup() {
   Serial.begin(115200);     // opens serial port, sets data rate to 115200 bps
   ResetTimingTester();
   EnableMarkerInt();
-  lcd.createChar(0, MicroSign);
-  //EEPROM.write(20, 1); //Only need to be enable when flashing for the first time to wite serial# to eeprom
+  lcd.createChar(0, MicroSign); //adds µ to display character set
   delay (1000);
   EnableMarkerInt();
+  //EnableAudioInt();
   EnableSrboxInt(); // Alleen nog nodig voor reset
   DisableLightsensorInt();
 }
@@ -72,10 +76,17 @@ void loop() {
   }
 
 
-  if (DataAvailable == true) {
+  if (DataAvailable > NONE) {
     unsigned long diff;
     diff = stoptime - starttime;
     lcd.clear();
+    if (DataAvailable == VIDEO) {
+      lcd.print("V:");
+    }
+    else if  (DataAvailable == AUDIO) {
+      lcd.print("A:");
+    }
+
     lcd.print(diff / 1000);
     lcd.print(" ");
     lcd.print("ms");
@@ -99,6 +110,7 @@ void loop() {
     lcd.print(" Count:");
     lcd.print(Counter);
     //Data[Counter] = diff;  //nog naar een apparte array en kopieren na een STOP
-    DataAvailable = false;
+    DataAvailable = NONE;
+
   }
 }
