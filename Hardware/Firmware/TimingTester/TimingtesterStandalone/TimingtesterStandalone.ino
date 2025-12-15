@@ -2,6 +2,7 @@
   HardwareTimingTester V1 Build 1 28-5-2019
   Copyright Leiden University - SOLO
   1.0 20241007  Port to standalone version, standalone version works by itself for display timing test only.
+  1.1 20251215  Enabled device name TimingTesterSA
 */
 
 /* IMPORTANT NOTE
@@ -24,7 +25,7 @@
 #define AUDIO 2
 
 //Version
-#define Version "1.0"
+#define Version "1.1"
 
 //Instance
 LiquidCrystal lcd(6, 12, A0, A1, A2, A3);

@@ -31,8 +31,8 @@ void DumpMyInfo() {
   Serial.print("\"Serialno\":\"");
   Serial.print(Serialno);
   Serial.print("\",");
-  Serial.println("\"Device\":\"UsbParMarker\"}");  
- // Serial.println("\"Device\":\"TimingTesterSA\"}");
+ // Serial.println("\"Device\":\"UsbParMarker\"}");  
+  Serial.println("\"Device\":\"TimingTesterSA\"}");
   //Serial.write(ETX);
 }
 
