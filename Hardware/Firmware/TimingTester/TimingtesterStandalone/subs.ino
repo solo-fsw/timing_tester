@@ -17,7 +17,7 @@ void ResetTimingTester() {
   DisableSrboxInt();
 }
 
-void SendMarker() {                        //Needed to create HW interrupt
+void SendMarker() {  //Needed to create HW interrupt
   digitalWrite(MARKEROUT, HIGH);
   delay(1);
   digitalWrite(MARKEROUT, LOW);
@@ -31,7 +31,7 @@ void DumpMyInfo() {
   Serial.print("\"Serialno\":\"");
   Serial.print(Serialno);
   Serial.print("\",");
- // Serial.println("\"Device\":\"UsbParMarker\"}");  
+  // Serial.println("\"Device\":\"UsbParMarker\"}");
   Serial.println("\"Device\":\"TimingTesterSA\"}");
   //Serial.write(ETX);
 }
@@ -42,36 +42,32 @@ void handlecommands() {
       DumpMyInfo();
       break;
     case 'P':
-      //Serial.println("Pong,TimingTesterSA");
-      Serial.println("Pong,UsbParMarker");
+      Serial.println("Pong,TimingTesterSA");
+      // Serial.println("Pong,UsbParMarker");
       break;
-   case 'R':
+    case 'R':
       SrboxIsr();
-      break;   
+      break;
     default:
       Serial.println("Unknown command");
       break;
   }
 }
 
-void writeStringToEEPROM(int addrOffset, const String &strToWrite)
-{
+void writeStringToEEPROM(int addrOffset, const String &strToWrite) {
   byte len = strToWrite.length();
   EEPROM.write(addrOffset, len);
-  for (int i = 0; i < len; i++)
-  {
+  for (int i = 0; i < len; i++) {
     EEPROM.write(addrOffset + 1 + i, strToWrite[i]);
   }
 }
 
-String readStringFromEEPROM(int addrOffset)
-{
+String readStringFromEEPROM(int addrOffset) {
   int newStrLen = EEPROM.read(addrOffset);
   char data[newStrLen + 1];
-  for (int i = 0; i < newStrLen; i++)
-  {
+  for (int i = 0; i < newStrLen; i++) {
     data[i] = EEPROM.read(addrOffset + 1 + i);
   }
-  data[newStrLen] = '\0'; // the character may appear in a weird way, you should read: 'only one backslash and 0'
+  data[newStrLen] = '\0';  // the character may appear in a weird way, you should read: 'only one backslash and 0'
   return String(data);
 }

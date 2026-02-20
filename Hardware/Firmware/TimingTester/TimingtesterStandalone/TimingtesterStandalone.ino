@@ -44,7 +44,7 @@ unsigned long minum = -1;
 String Serialno;
 
 void setup() {
-  //writeStringToEEPROM(10, "S01626");    //Use ones to program te serial number in the eeprom of the device
+ //writeStringToEEPROM(10, "S01917");    //Use ones to program te serial number in the eeprom of the device
   Serialno = readStringFromEEPROM(10);
   lcd.begin(20, 4);
   pinMode(MARKEROUT, OUTPUT);
